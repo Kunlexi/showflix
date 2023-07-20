@@ -38,8 +38,8 @@ export default function MoviePage() {
               <button className="px-4 py-2 ml-2 bg-[#5F2EEA] text-white rounded-r-full rounded-l-full w-[200px] h-[64px]">
                 Watch Now
               </button>
-              <div className="bg-[#D9DBE9] w-[70px] h-[64px] p-6 ml-4 -[#5F2EEA]">
-                <HeartIcon className="h-6" />
+              <div className="bg-[#D9DBE9] w-[70px] h-[64px] p-6 ml-4 rounded-[26px] border-[#5F2EEA]">
+                <HeartIcon className="h-6 text-[#5F2EEA]" />
               </div>
             </div>
           </div>
