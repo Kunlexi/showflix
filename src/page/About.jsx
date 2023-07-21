@@ -12,7 +12,7 @@ export default function About() {
         <div className="bg-black opacity-50 absolute w-screen h-screen z-10" />
       </Link>
       <HomePage />
-      <div className="fixed top-0 right-0 w-full md:w-[40%] lg:w-[20%] h-screen bg-white z-20">
+      <div className="fixed top-0 right-0 w-full md:w-[40%] lg:w-[25%] h-screen bg-white z-20">
         <MovieDetails title={movieSlice?.title} imgUrl={movieSlice?.imgUrl} />
       </div>
     </div>

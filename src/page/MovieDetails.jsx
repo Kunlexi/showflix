@@ -32,7 +32,7 @@ export default function MovieDetails({ title, imgUrl }) {
         </div>
       </div>
       <Link to="/movie">
-        <div className="flex items-center justify-center 2xl:justify-start mt-4">
+        <div className="flex items-center justify-center mt-4">
           <button className="px-4 py-2 ml-2 bg-[#5F2EEA] text-white rounded-r-full rounded-l-full w-[250px] h-[64px] xl:absolute bottom-10">
             Watch
           </button>
