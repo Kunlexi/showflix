@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 
 export default function MovieDetails({ title, imgUrl }) {
   return (
-    <div className="w-full p-8 relative h-full">
+    <div className="w-full p-5 relative h-full">
       <Link to="/">
-        <ArrowLeftIcon className="cursor-pointer h-7 mt-5 mb-10" />
+        <ArrowLeftIcon className="cursor-pointer h-7 mb-5 mt-3" />
       </Link>
       <div className="flex items-center justify-center flex-col w-full">
         <div className="flex items-center justify-start flex-wrap gap-10 max-w-[1300px]">
@@ -20,7 +20,7 @@ export default function MovieDetails({ title, imgUrl }) {
             />
           </div>
         </div>
-        <div className="mt-20 space-y-5">
+        <div className="mt-10 space-y-2">
           <h1 className="font-poppins text-[24px] font-bold leading-48 tracking-wider text-left">
             {title}
           </h1>
@@ -33,7 +33,7 @@ export default function MovieDetails({ title, imgUrl }) {
       </div>
       <Link to="/movie">
         <div className="flex items-center justify-center mt-4">
-          <button className="px-4 py-2 ml-2 bg-[#5F2EEA] text-white rounded-r-full rounded-l-full w-[250px] h-[64px] xl:absolute bottom-10">
+          <button className="px-4 py-2 ml-2 bg-[#5F2EEA] text-white rounded-r-full rounded-l-full w-[250px] h-[64px] xl:absolute bottom-5">
             Watch
           </button>
         </div>
