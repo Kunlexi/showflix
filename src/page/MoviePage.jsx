@@ -1,33 +1,93 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import {
   ClockIcon,
   HeartIcon,
+  MagnifyingGlassIcon,
   PlayIcon,
   StarIcon,
 } from "@heroicons/react/24/outline";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function MoviePage() {
+  const movieSlice = useSelector((state) => state.movie);
+  const [movies, setMovies] = useState([]);
+  useEffect(() => {
+    const getMovies = async () => {
+      try {
+        const res = await axios.get(
+          "https://www.omdbapi.com/?i=tt3896198&apikey=d7e4ef4a&s=title"
+        );
+        setMovies(
+          res.data.Search.filter((data) => data.imdbID != movieSlice.id).slice(
+            0,
+            3
+          )
+        );
+        console.log(
+          res.data.Search.filter((data) => data.imdbID != movieSlice.id).slice(
+            0,
+            3
+          ),
+          movieSlice.id
+        );
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getMovies();
+  }, [movieSlice.id]);
   return (
-    <section className="flex w-full min-h-screen">
-      <div className="w-[20%] pl-8 border-r h-full bg-slate-100 min-h-screen">
-        <h1 className="text-[32px] mb-8 mt-4">
-          Dev<span className="text-[#5F2EEA]">Hire</span>{" "}
-        </h1>
-        <h2 className="mb-4">Search</h2>
-        <h2>Watchlist</h2>
+    <section className="flex flex-col xl:flex-row w-full min-h-screen overflow-hidden">
+      <div className="hidden xl:block w-[20%] pl-8 border-r h-full bg-slate-100 min-h-screen">
+        <Link to="/">
+          <h1 className="text-[32px] mb-8 mt-4">
+            Show<span className="text-[#5F2EEA]">Flix</span>{" "}
+          </h1>
+        </Link>
+        <div className="flex">
+          <span className="mr-2 w-[30px] h-[30px] bg-[#5F2EEA] text-[#F2F2F2] flex justify-center items-center rounded-[8px]">
+            <MagnifyingGlassIcon className="h-4" />
+          </span>
+          <h2 className="mb-4">Search</h2>
+        </div>
+        <div className="flex space-x-4 mr-2 text-[#BCA4FF]">
+          <HeartIcon className="h-6" />
+          <h2>Watchlist</h2>
+        </div>
       </div>
+      <h1 className="text-[32px] text-center w-full font-bold md:hidden mt-10">
+        <Link to="/">
+          <span>
+            Show<span className="text-[#5F2EEA]">Flix</span>{" "}
+          </span>
+        </Link>
+      </h1>
       <div className="flex-col">
-        <div className="flex-1 pl-16 pt-16 flex items-start justify-start gap-5">
+        <div className="xl:flex-1 flex-col xl:flex-row pl-4 xl:pl-16 pt-16 flex items-start justify-start gap-5">
           <div className="flex items-top justify-start flex-wrap gap-10 max-w-[1300px]">
-            <Card />
+            <div className="relative h-[300px] w-[310px] overflow-hidden rounded-2xl">
+              <img
+                src={movieSlice?.imgUrl}
+                alt="card"
+                className="absolute h-full w-full top-0 right-0 -z-10 object-cover"
+              />
+            </div>
           </div>
-          <div className="flex-col">
-            <h1 className="text-[32px] mb-8">Mortal Kombat</h1>
-            <h1 className="text-[22px] w-[601px]">
-              MMA fighter Cole Young seeks out Earth's greatest champions in
-              order to stand against the enemies of Outworld in a high stakes
-              battle for the universe.
+          <div className="flex-col w-full mr-5">
+            <h1 className="text-[25px] xl:text-[32px] mb-8 whitespace-normal">
+              {movieSlice?.title}
+            </h1>
+            <h1 className="text-[22px] xl:w-[601px] whitespace-normal">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
+              delectus at quasi tenetur laborum consequatur vitae, quaerat,
+              molestias ipsam optio fugit libero quia aliquid.
             </h1>
             <div className="flex space-x-40">
               <ClockIcon className="h-6" />
@@ -45,13 +105,19 @@ export default function MoviePage() {
           </div>
         </div>
 
-        <div className="pl-16 pt-20">
+        <div className="mx-2 xl:pl-16 pt-20">
           <h1 className="text-[32px] w-256 h-43 pb-6">Similar Movies</h1>
 
-          <div className="flex items-center justify-start flex-wrap gap-10 max-w-[1300px]">
-            <Card />
-            <Card />
-            <Card />
+          <div className="flex items-center justify-center md:justify-start flex-wrap gap-10 max-w-[1300px]">
+            {movies?.map((data) => (
+              <Card
+                key={data?.imdbID}
+                id={data?.imdbID}
+                title={data?.Title}
+                imgUrl={data?.Poster}
+                isMoviePage={true}
+              />
+            ))}
           </div>
         </div>
       </div>
